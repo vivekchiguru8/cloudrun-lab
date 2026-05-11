@@ -1,2 +1,2 @@
-go mod init example.com/amazingapp
-go mod tidy
+module example.com/amazingapp
+go 1.22
