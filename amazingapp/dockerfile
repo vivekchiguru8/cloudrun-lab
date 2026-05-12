@@ -1,10 +1,4 @@
-FROM golang:1.22 as builder
-WORKDIR /app
-COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o server
-
-FROM alpine:3
-RUN apk add --no-cache ca-certificates
-COPY --from=builder /app/server .
-COPY --from=builder /app/homepage.html .
-CMD ["./server"]
+FROM mirror.gcr.io/library/nginx:alpine
+COPY homepage.html /usr/share/nginx/html/index.html
+EXPOSE 8080
+CMD ["nginx", "-g", "daemon off;"]
